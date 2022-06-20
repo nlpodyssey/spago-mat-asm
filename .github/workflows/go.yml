@@ -1,0 +1,61 @@
+name: Go
+on: [ push, pull_request ]
+jobs:
+  test:
+    name: go test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+      - name: Run tests
+        run: go test -race -v ./...
+
+  test-purego:
+    name: go test | pure Go
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+      - name: Run tests
+        run: go test -tags purego -race -v ./...
+
+  test-no-avx:
+    name: go test | AVX off
+    runs-on: ubuntu-latest
+    env:
+      GODEBUG: cpu.avx=off
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+      - name: Run tests
+        run: go test -tags purego -race -v ./matfuncs
+
+  vet:
+    name: go vet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+      - name: go vet
+        run: go vet ./... && cd ./asm && go vet ./...
+
+  staticcheck:
+    name: staticcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+      - name: Install staticcheck
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+      - name: staticcheck
+        run: staticcheck ./... && cd ./asm && staticcheck ./...
