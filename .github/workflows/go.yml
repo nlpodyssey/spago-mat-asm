@@ -27,7 +27,7 @@ jobs:
     name: go test | AVX off
     runs-on: ubuntu-latest
     env:
-      GODEBUG: cpu.avx=off
+      GODEBUG: cpu.avx=off,cpu.avx2=off
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
