@@ -8,22 +8,36 @@ package matfuncs
 
 // Exp32 computes the base-e exponential of each element of x, storing the result in y (32 bits).
 func Exp32(x, y []float32) {
-	if !hasAVX2 || len(x) < 8 {
-		exp(x, y)
+	if len(x) == 0 {
 		return
-	}
-	_ = y[len(x)-1]
-	max := len(x) - 8
-	for i := 0; i <= max; i += 8 {
-		ExpAVX32(x[i:], y[i:])
 	}
 
-	mod := len(x) % 8
-	if mod == 0 {
+	if hasAVX2 {
+		_ = y[len(x)-1]
+		max := len(x) - 8
+		for i := 0; i <= max; i += 8 {
+			ExpAVX32(x[i:], y[i:])
+		}
+
+		mod := len(x) % 8
+		if mod > 0 {
+			tailStart := len(x) - mod
+			exp(x[tailStart:], y[tailStart:])
+		}
 		return
 	}
-	tailStart := len(x) - mod
-	exp(x[tailStart:], y[tailStart:])
+
+	_ = y[len(x)-1]
+	max := len(x) - 4
+	for i := 0; i <= max; i += 4 {
+		ExpSSE32(x[i:], y[i:])
+	}
+
+	mod := len(x) % 4
+	if mod > 0 {
+		tailStart := len(x) - mod
+		exp(x[tailStart:], y[tailStart:])
+	}
 }
 
 // Exp64 computes the base-e exponential of each element of x, storing the result in y (64 bits).
