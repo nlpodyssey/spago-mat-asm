@@ -12,20 +12,20 @@ func Log32(x, y []float32) {
 		return
 	}
 
-	//if hasAVX2 {
-	//	_ = y[len(x)-1]
-	//	max := len(x) - 8
-	//	for i := 0; i <= max; i += 8 {
-	//		LogAVX32(x[i:], y[i:])
-	//	}
-	//
-	//	mod := len(x) % 8
-	//	if mod > 0 {
-	//		tailStart := len(x) - mod
-	//		log(x[tailStart:], y[tailStart:])
-	//	}
-	//	return
-	//}
+	if hasAVX2 {
+		_ = y[len(x)-1]
+		max := len(x) - 8
+		for i := 0; i <= max; i += 8 {
+			LogAVX32(x[i:], y[i:])
+		}
+
+		mod := len(x) % 8
+		if mod > 0 {
+			tailStart := len(x) - mod
+			log(x[tailStart:], y[tailStart:])
+		}
+		return
+	}
 
 	_ = y[len(x)-1]
 	max := len(x) - 4
