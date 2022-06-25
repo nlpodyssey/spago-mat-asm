@@ -15,3 +15,13 @@ func MulConst32(c float32, x, y []float32) {
 func MulConst64(c float64, x, y []float64) {
 	mulConst(c, x, y)
 }
+
+func mulConst[F float32 | float64](c F, x, y []F) {
+	if len(x) == 0 {
+		return
+	}
+	_ = y[len(x)-1]
+	for i, xv := range x {
+		y[i] = xv * c
+	}
+}
