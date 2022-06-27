@@ -5,11 +5,9 @@
 package matfuncs
 
 // ExpAVX32 computes the base-e exponential of each element of x, storing the result in y (32 bits, AVX required).
-//
 //go:noescape
 func ExpAVX32(x []float32, y []float32)
 
 // ExpSSE32 computes the base-e exponential of each element of x, storing the result in y (32 bits, SSE required).
-//
 //go:noescape
 func ExpSSE32(x []float32, y []float32)

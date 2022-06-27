@@ -5,11 +5,9 @@
 package matfuncs
 
 // LogAVX32 computes the natural logarithm of each element of x, storing the result in y (32 bits, AVX2 required).
-//
 //go:noescape
 func LogAVX32(x []float32, y []float32)
 
 // LogSSE32 computes the natural logarithm of each element of x, storing the result in y (32 bits, SSE required).
-//
 //go:noescape
 func LogSSE32(x []float32, y []float32)
