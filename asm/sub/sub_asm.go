@@ -29,7 +29,6 @@ func main() {
 const unroll = 16 // number of XMM or YMM registers
 
 var (
-	ADDS   = map[int]func(Op, Op){32: ADDSS, 64: ADDSD}
 	MOVS   = map[int]func(Op, Op){32: MOVSS, 64: MOVSD}
 	MOVUP  = map[int]func(Op, Op){32: MOVUPS, 64: MOVUPD}
 	SUBP   = map[int]func(Op, Op){32: SUBPS, 64: SUBPD}
