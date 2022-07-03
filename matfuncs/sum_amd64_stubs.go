@@ -5,17 +5,21 @@
 package matfuncs
 
 // SumAVX32 returns the sum of all values of x (32 bits, AVX required).
+//
 //go:noescape
 func SumAVX32(x []float32) float32
 
 // SumAVX64 returns the sum of all values of x (64 bits, AVX required).
+//
 //go:noescape
 func SumAVX64(x []float64) float64
 
 // SumSSE32 returns the sum of all values of x (32 bits, SSE required).
+//
 //go:noescape
 func SumSSE32(x []float32) float32
 
 // SumSSE64 returns the sum of all values of x (64 bits, SSE required).
+//
 //go:noescape
 func SumSSE64(x []float64) float64

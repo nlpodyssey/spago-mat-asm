@@ -5,17 +5,21 @@
 package matfuncs
 
 // MulConstAVX32 multiplies each element of x by a constant value c, storing the result in y (32 bits, AVX required).
+//
 //go:noescape
 func MulConstAVX32(c float32, x []float32, y []float32)
 
 // MulConstAVX64 multiplies each element of x by a constant value c, storing the result in y (64 bits, AVX required).
+//
 //go:noescape
 func MulConstAVX64(c float64, x []float64, y []float64)
 
 // MulConstSSE32 multiplies each element of x by a constant value c, storing the result in y (32 bits, SSE required).
+//
 //go:noescape
 func MulConstSSE32(c float32, x []float32, y []float32)
 
 // MulConstSSE64 multiplies each element of x by a constant value c, storing the result in y (64 bits, SSE required).
+//
 //go:noescape
 func MulConstSSE64(c float64, x []float64, y []float64)
