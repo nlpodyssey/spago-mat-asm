@@ -5,21 +5,17 @@
 package matfuncs
 
 // AddConstAVX32 adds a constant value c to each element of x, storing the result in y (32 bits, AVX required).
-//
 //go:noescape
 func AddConstAVX32(c float32, x []float32, y []float32)
 
 // AddConstAVX64 adds a constant value c to each element of x, storing the result in y (64 bits, AVX required).
-//
 //go:noescape
 func AddConstAVX64(c float64, x []float64, y []float64)
 
 // AddConstSSE32 adds a constant value c to each element of x, storing the result in y (32 bits, SSE required).
-//
 //go:noescape
 func AddConstSSE32(c float32, x []float32, y []float32)
 
 // AddConstSSE64 adds a constant value c to each element of x, storing the result in y (64 bits, SSE required).
-//
 //go:noescape
 func AddConstSSE64(c float64, x []float64, y []float64)

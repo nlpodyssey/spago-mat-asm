@@ -5,21 +5,17 @@
 package matfuncs
 
 // DivAVX32 divides x1 by x2, element-wise, storing the result in y (32 bits, AVX required).
-//
 //go:noescape
 func DivAVX32(x1 []float32, x2 []float32, y []float32)
 
 // DivAVX64 divides x1 by x2, element-wise, storing the result in y (64 bits, AVX required).
-//
 //go:noescape
 func DivAVX64(x1 []float64, x2 []float64, y []float64)
 
 // DivSSE32 divides x1 by x2, element-wise, storing the result in y (32 bits, SSE required).
-//
 //go:noescape
 func DivSSE32(x1 []float32, x2 []float32, y []float32)
 
 // DivSSE64 divides x1 by x2, element-wise, storing the result in y (64 bits, SSE required).
-//
 //go:noescape
 func DivSSE64(x1 []float64, x2 []float64, y []float64)
