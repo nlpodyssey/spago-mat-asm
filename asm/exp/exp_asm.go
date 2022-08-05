@@ -8,6 +8,7 @@ package main
 
 import (
 	"fmt"
+
 	. "github.com/mmcloughlin/avo/build"
 	. "github.com/mmcloughlin/avo/operand"
 	"github.com/mmcloughlin/avo/reg"
@@ -16,15 +17,14 @@ import (
 func main() {
 	ConstraintExpr("amd64,gc,!purego")
 
-	buildAVX(32)
-	//buildAVX(64)
+	buildAVX32()
 
-	buildSSE(32)
+	buildSSE32()
 
 	Generate()
 }
 
-func buildAVX(bits int) {
+func buildAVX32() {
 	//.LCPI0_0:
 	//        .long   0x42b0c0a5                      # float 88.3762589
 	//LCPI0_0 := ConstData("LCPI0_0", F32(88.3762589))
@@ -74,13 +74,13 @@ func buildAVX(bits int) {
 	//LCPI0_11 := ConstData("LCPI0_11", F32(0.166666657))
 	LCPI0_11 := ConstData("LCPI0_11", U32(0x3e2aaaaa))
 
-	name := fmt.Sprintf("ExpAVX%d", bits)
-	signature := fmt.Sprintf("func(x, y []float%d)", bits)
+	const name = "ExpAVX32"
+	const signature = "func(x, y []float32)"
 	TEXT(name, NOSPLIT, signature)
 	Pragma("noescape")
 	Doc(fmt.Sprintf(
-		"%s computes the base-e exponential of each element of x, storing the result in y (%d bits, AVX required).",
-		name, bits,
+		"%s computes the base-e exponential of each element of x, storing the result in y (32 bits, AVX required).",
+		name,
 	))
 
 	x := Mem{Base: Load(Param("x").Base(), GP64())}
@@ -250,8 +250,7 @@ func buildAVX(bits int) {
 	RET()
 }
 
-func buildSSE(bits int) {
-
+func buildSSE32() {
 	globlData4 := func(name string, v U32) Mem {
 		m := GLOBL(name, RODATA|NOPTR)
 		DATA(0, v)
@@ -274,13 +273,13 @@ func buildSSE(bits int) {
 	LCPI0_10 := globlData4("SSE_LCPI0_10", 0x3d2aa9c1) // float 0.0416657962
 	LCPI0_11 := globlData4("SSE_LCPI0_11", 0x3e2aaaaa) // float 0.166666657
 
-	name := fmt.Sprintf("ExpSSE%d", bits)
-	signature := fmt.Sprintf("func(x, y []float%d)", bits)
+	const name = "ExpSSE32"
+	const signature = "func(x, y []float32)"
 	TEXT(name, NOSPLIT, signature)
 	Pragma("noescape")
 	Doc(fmt.Sprintf(
-		"%s computes the base-e exponential of each element of x, storing the result in y (%d bits, SSE required).",
-		name, bits,
+		"%s computes the base-e exponential of each element of x, storing the result in y (32 bits, SSE required).",
+		name,
 	))
 
 	x := Mem{Base: Load(Param("x").Base(), GP64())}
